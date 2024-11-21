@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Song</title>
+    <link rel="stylesheet" href="home.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: rgb(32, 10, 66);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .nav-container {
+            background-color: rgb(190, 172, 216);
+            padding: 10px 0;
+        }
+
+        .nav {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav .item {
+            margin: 0 15px;
+        }
+
+        .nav a {
+            font-weight: bold;
+            color: rgb(85, 33, 33);
+            font-size: larger;
+            text-decoration: none;
+        }
+
+        .everything {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .form-container {
+            margin: 20px 0;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: rgb(32, 10, 66);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgb(64, 20, 132);
+        }
+
+        #resultsContainer {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .result-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 15px;
+            width: 300px;
+            transition: transform 0.2s;
+        }
+
+        .result-card:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgb(32, 10, 66);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/symphoria_logo.png" 
+             height="100px" alt="Symphoria Logo">
+    </header>
+
+    <div class="nav-container">
+        <ul class="nav">
+            <li class="item"><a href="home.html" onclick="showit()">Home</a></li>
+            <li class="item"><a href="sports.html" onclick="hideit()">Contact Us</a></li>
+            <li class="item"><a href="politics.html" onclick="hideit()">More</a></li>
+        </ul>
+    </div>
+
+    <div class="everything">
+        <div class="welcome">
+            <h1>SEARCH SONG SECTION</h1>
+        </div>
+
+        <div class="form-container">
+            <form id="searchForm">
+                <input type="text" placeholder="Song Title" name="songTitle" required><br>
+                <button type="submit">SEARCH Song</button>
+            </form>
+        </div>
+
+        <div id="resultsContainer"></div> <!-- Container for displaying search results -->
+    </div>
+
+    <footer>
+        <p>Contact Us At: mailmy798@gmail.com</p>
+        <p>&copy; 2023 Music Platform</p>
+    </footer>
+
+    <script>
+        const searchForm = document.getElementById('searchForm');
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        searchForm.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent form submission from reloading the page
+
+            const songTitle = searchForm.songTitle.value;
+
+            try {
+                const response = await fetch(`http://localhost:3000/songs?title=${encodeURIComponent(songTitle)}`);
+
+                const song = await response.json();
+
+                if (response.ok && song) {
+                    const songCard = `
+                        <div class="result-card">
+                            <h2>Song Title: ${song.SongTitle || 'Not Available'}</h2>
+                            <p><strong>Artist Name:</strong> ${song.ArtistName || 'Not Available'}</p>
+                            <p><strong>Album Name:</strong> ${song.AlbumName || 'Not Available'}</p>
+                            <p><strong>Genre:</strong> ${song.Genre || 'Not Available'}</p>
+                        </div>
+                    `;
+                    resultsContainer.innerHTML = songCard;
+                } else {
+                    resultsContainer.innerHTML = `<p>Song not found or data unavailable.</p>`;
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                resultsContainer.innerHTML = `<p>An error occurred. Please try again.</p>`;
+            }
+        });
+    </script>
+</body>
+
+</html>

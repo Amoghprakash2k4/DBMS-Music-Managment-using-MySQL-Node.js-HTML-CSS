@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Liked Songs</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <header>
+        <div class="left-things" style="background-color: rgb(32, 10, 66); width: 100%;">
+            <img src="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/symphoria_logo.png" height="100px" alt="Symphoria Logo">
+        </div>
+    </header>
+
+    <div class="nav-container" style="background-color: rgb(190, 172, 216); width: 100%;">
+        <ul class="nav" style="width: 100%; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-weight: 400;">
+            <li class="item" onclick="showit()">
+                <a href="home.html" style="font-weight: bold; color: rgb(85, 33, 33);font-size: larger;">Home</a>
+            </li>
+            <li class="item" onclick="hideit()"><a href="sports.html" style="font-weight: bold; color: rgb(85, 33, 33);font-size: larger;">Contact Us</a></li>
+            <li class="item" onclick="hideit()"><a href="politics.html" style="font-weight: bold; color: rgb(85, 33, 33);font-size: larger;">More</a></li>
+        </ul>
+    </div>
+
+
+    <div class="everything">
+        <div class="welcome">
+            <h1>Add Liked Songs</h1>
+        </div>
+
+        <div class="form-container">
+            <form id="likedSongForm">
+                <input type="text" placeholder="Username" name="username" required><br>
+                <textarea placeholder="Song Titles (one per line)" name="songTitles" rows="5" required></textarea><br>
+                <button type="submit">Add to Liked Songs</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>Contact Us At: mailmy798@gmail.com</p>
+        <p>&copy; 2023 Music Platform</p>
+    </footer>
+
+    <script>
+        const likedSongForm = document.getElementById('likedSongForm');
+
+        likedSongForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(likedSongForm);
+            const username = formData.get('username');
+            const songTitles = formData.get('songTitles').split('\n').map(title => title.trim()).filter(title => title);
+
+            try {
+                const response = await fetch('http://localhost:3000/add-liked-songs', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, songTitles })
+                });
+
+                if (response.ok) {
+                    alert('Songs added to liked songs successfully!');
+                    likedSongForm.reset();
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.error}`);
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

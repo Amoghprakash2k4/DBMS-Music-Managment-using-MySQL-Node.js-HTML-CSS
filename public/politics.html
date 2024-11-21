@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More About Symphoria</title>
+    <link rel="stylesheet" href="more.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container" style="background-color: rgb(32, 10, 66); padding: 20px;">
+            <img src="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/symphoria_logo.png" 
+                 height="100px" alt="Symphoria Logo">
+        </div>
+    </header>
+
+    <div class="content-container">
+        <h1>More About Symphoria</h1>
+        <p>Welcome to the "More" page! Here you can learn about our platform, upcoming features, and how we work to bring you the best music experience.</p>
+
+        <section class="contact-info">
+            <h2>Contact Information</h2>
+            <p>Have questions? Get in touch with us at:</p>
+            <form id="feedbackForm">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required>
+                
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+                
+                <button type="button" onclick="submitFeedback()">Submit Feedback</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Music Platform. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        async function submitFeedback() {
+    // Get form data
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+
+    // Send data to the server
+    try {
+        console.log('Form Data:', { name, email, subject, message }); // Log form data
+
+        const response = await fetch('/submit-feedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email, subject, message })
+        });
+
+        if (response.ok) {
+            alert('Response submitted successfully!');
+            document.getElementById('feedbackForm').reset();  // Clear the form
+        } else {
+            const errorData = await response.json(); // Get error data
+            console.error('Submission error:', errorData);
+            alert('There was an issue with your submission. Please try again later.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('There was an issue with your submission. Please try again later.');
+    }
+}
+
+    </script>
+</body>
+
+</html>

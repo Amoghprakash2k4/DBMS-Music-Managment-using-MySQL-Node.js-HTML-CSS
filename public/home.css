@@ -1,0 +1,340 @@
+html{
+    width: 100%;
+    overflow-x: hidden;
+}
+body{
+    margin:0px;
+    background-color: #EEEEEE;
+    font-family:ReithSerif,Helvetica,Arial,freesans,sans-serif;
+}
+.nav-container{
+    width: 100%;
+    position: sticky;
+    top:0px; 
+    display:flex;
+    justify-content: right;
+    align-items: center;
+    gap:8%;
+    padding:1%;
+    color:rgb(196, 157, 157);
+    background-color: black;
+    flex-wrap: wrap;
+}   
+
+/* Hero Section */
+.hero-section {
+    width: 100%;
+    height: 100vh; /* Full screen height */
+    background-image: url('https://images.pexels.com/photos/3721941/pexels-photo-3721941.jpeg?cs=srgb&dl=pexels-daniel-reche-718241-3721941.jpg&fm=jpg'); /* Local backup */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Overlay Text Styling */
+.hero-overlay {
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent for readability */
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.hero-overlay h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero-overlay p {
+    font-size: 1.5rem;
+}
+
+
+
+/* Navigation Styles */
+.nav-container {
+    width: 100%;
+    background-color: rgb(103, 136, 136);
+    padding: 10px 0;
+}
+
+.nav {
+    display: flex;
+    justify-content: flex-end;  /* Align items to the left */
+    padding-right: 10%;            /* Adjust spacing from the left */
+    list-style: none;
+    gap: 20px;                    /* Space between the items */
+}
+
+.item a {
+    text-decoration: none;
+    color: rgb(142, 43, 43);
+    font-weight: bold;
+}
+
+.item:hover a {
+    text-decoration: underline;
+    color: rgb(228, 16, 23); /* Optional: Add hover effect */
+}
+
+.left-things{
+    display: flex;
+    justify-content:center;
+}
+
+h2{
+    width: 100%;
+    margin:2%;
+}
+header {
+    background-color: #EEEEEE;
+    color: black;
+    padding: 0px 0;
+}
+
+ul{
+    width: 100%;
+    list-style-type: none;
+    display: flex;
+    gap:40px;
+    padding: 0px 10px;
+    font-size: 90%;
+    justify-content: center;
+}
+a{
+    color:inherit;
+    text-decoration: none;
+    font-weight: 600;
+    font-family:'Arial',Arial, Helvetica, sans-serif;
+}
+.item{
+    padding:.1%;
+}
+
+.top-news{
+    margin:8%;
+    margin-bottom: 0%;
+    width:80vw;
+    min-height:40vh;
+    display:grid;
+    gap:15px;
+    grid-template-rows:1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
+    margin-top:1%;
+}
+.Welcome > h1{
+    width: 80%;
+    font-size:2em;
+    margin-top: 3%;
+    color:#4a4a4a;
+    font-size: 22px; 
+    margin-left: 8%;
+}
+.Welcome span{
+    /* text-align: right; */
+    float:right;
+}
+.big-one{
+    background-image: url('https://ichef.bbci.co.uk/news/976/cpsprodpb/AFE0/production/_131342054_d7823ee07c936b912e41fefb8e6d5dfda1e8447a0_0_3809_21421000x563.jpg.webp');
+    grid-row:span 2;
+    grid-column: span 1;
+    padding: 5px;
+    /* font-weight: 540; */
+   
+}
+.items > img{
+    width: 100%;
+}
+.small{
+    grid:span 1;
+}
+.one{
+    
+    background-size: cover;
+}
+.three{
+   
+    background-size:cover;
+}
+.two{
+    
+    background-size: cover;
+}
+.four{
+   
+    background-size: cover; 
+}
+
+a:hover{
+    text-decoration: underline;
+    color: white;
+}
+.World-News{
+    /* margin-top: 20px; */
+    width: 81%;
+    margin-left: 8%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:18px;
+}
+
+.World-News h3{
+    margin-top:0px;
+    font-weight: bolder;
+}
+.World-News p{
+    margin-top:-5px;
+    font-weight: 300;
+}
+
+.World-News a:hover{
+    text-decoration: none !important ;
+    color: inherit;
+}
+footer {
+    margin-top: 10%;
+    background-color: rgb(32, 10, 66);
+    color: #fff;
+    width:100%;
+    padding: 5px 0;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+}
+@media(max-width: 750px){
+    .nav-container{
+        display:none;
+    }
+    ul{
+        display: flex;
+        flex-direction: column;
+        display: none;
+    }
+    .top-news{
+        display: flex;
+        flex-direction: column;
+        width: 85%;
+    }
+    .World-News{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+.nav-container{
+    width: 100%;
+    position: sticky;
+    top:0px; 
+    display:flex;
+    justify-content: right;
+    align-items: center;
+    gap:8%;
+    padding:1%;
+    color:rgb(196, 157, 157);
+    background-color: black;
+    flex-wrap: wrap;
+}   
+/* Navigation Styles */
+.nav-container {
+    width: 100%;
+    background-color: rgb(103, 136, 136);
+    padding: 10px 0;
+}
+
+.nav {
+    display: flex;
+    justify-content: flex-end;  /* Align items to the left */
+    padding-right: 10%;            /* Adjust spacing from the left */
+    list-style: none;
+    gap: 20px;                    /* Space between the items */
+}.left-things{
+    display: flex;
+    justify-content:center;
+}
+header img {
+    display: block;
+    margin: 0 auto;
+}
+
+.nav ul {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    padding: 10px 20px;
+    margin: 0;
+}
+
+.nav ul li {
+    margin: 0 10px;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+}
+
+.welcome {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+form input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+form button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(32, 10, 66);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: rgb(48, 20, 100);
+}
+footer {
+    margin-top: 10%;
+    background-color: rgb(32, 10, 66)black;
+    color: #fff;
+    width:100%;
+    padding: 5px 0;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+}

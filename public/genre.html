@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FILTER BY GENRE</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+    <header>
+        <div class="left-things" style="background-color: rgb(32, 10, 66); width: 100%;">
+            <img src="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/symphoria_logo.png" 
+                 height="100px" alt="Symphoria Logo">
+        </div>
+    </header>
+
+    <div class="nav-container" style="background-color: rgb(190, 172, 216); width: 100%;">
+        <ul class="nav" style="width: 100%; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-weight: 400;">
+            <li class="item" onclick="showit()">
+                <a href="home.html" style="font-weight: bold; color: rgb(85, 33, 33); font-size: larger;">Home</a>
+            </li>
+            <li class="item" onclick="hideit()"><a href="sports.html" style="font-weight: bold; color: rgb(85, 33, 33); font-size: larger;">Contact Us</a></li>
+            <li class="item" onclick="hideit()"><a href="politics.html" style="font-weight: bold; color: rgb(85, 33, 33); font-size: larger;">More</a></li>
+        </ul>
+    </div>
+
+    <div class="everything">
+        <div class="welcome">
+            <h1>FILTER BY GENRE</h1>
+        </div>
+
+        <div class="form-container">
+            <form id="songForm">
+                <input type="text" placeholder="GENRE" name="genre" required aria-label="Genre"><br>
+                <button type="submit">FILTER</button>
+            </form>
+        </div>
+
+        <div id="results" style="margin-top: 20px;">
+            <h2>Filtered Songs:</h2>
+            <ul id="songList"></ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>Contact Us At: mailmy798@gmail.com</p>
+        <p>&copy; 2023 Music Platform</p>
+    </footer>
+
+    <script>
+        const songForm = document.getElementById('songForm');
+
+        // Add submit event listener to the form
+        songForm.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent form from reloading the page
+
+            const formData = new FormData(songForm);
+            const genre = formData.get('genre'); // Get the genre from form
+
+            // Send genre to the server
+            try {
+                const response = await fetch('http://localhost:3000/filter-by-genre', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ genre })
+                });
+
+                if (response.ok) {
+                    const songs = await response.json(); // Get the songs data
+                    displaySongs(songs); // Call the function to display songs
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.error}`);
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+
+        // Function to display songs in the results section
+    function displaySongs(songs) {
+        const songList = document.getElementById('songList');
+        songList.innerHTML = ''; // Clear previous results
+
+        if (songs.length > 0) {
+            songs.forEach(song => {
+                const li = document.createElement('li');
+                li.textContent = `${song.SongTitle}`; // Only use SongTitle
+                songList.appendChild(li);
+            });
+        } else {
+        songList.innerHTML = '<li>No songs found for this genre.</li>';
+        }
+    }
+    </script>
+</body>
+
+</html>

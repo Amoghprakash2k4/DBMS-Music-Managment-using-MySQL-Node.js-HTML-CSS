@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symphoria</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+    <header>
+        <div class="left-things" style="background-color: rgb(32, 10, 66); width: 100%;">
+            <img src="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/symphoria_logo.png" height="100px" alt="Why not">
+        </div>
+    </header>
+    <div class="nav-container" style="background-color: rgb(190, 172, 216); width: 100%;">
+        <ul class="nav" style="width: 100%;">
+            <li class="item" onclick="showit()"><a href="home.html">Home</a></li>
+            <li class="item" onclick="hideit()"><a href="sports.html">Contact us</a></li>
+            <li class="item" onclick="hideit()"><a href="politics.html">More</a></li>
+        </ul>
+    </div>
+    <h1>Add a New Song</h1>
+    <form id="addSongForm">
+        <label for="title">Song Title:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="artist">Artist Name:</label>
+        <input type="text" id="artist" name="artist" required>
+
+        <label for="artistId">Artist ID:</label>
+        <input type="number" id="artistId" name="artistId" required>
+
+        <label for="album">Album Name:</label>
+        <input type="text" id="album" name="album" required>
+
+        <label for="albumId">Album ID:</label>
+        <input type="number" id="albumId" name="albumId" required>
+
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" required>
+
+        <button type="submit">Add Song</button>
+    </form>
+    <footer>
+        <p>Contact Us At: mailmy798@gmail.com</p>
+        <p>&copy; 2023 Music Platform</p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#addSongForm').on('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Gather the input values
+                const title = $('#title').val();
+                const artist = $('#artist').val();
+                const artistId = $('#artistId').val();
+                const album = $('#album').val();
+                const albumId = $('#albumId').val();
+                const genre = $('#genre').val();
+
+                // Send the data to the server
+                $.ajax({
+                    url: 'http://localhost:3000/songs', // API endpoint to add the song
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ title, artist, artistId, album, albumId, genre }),
+                    success: function(response) {
+                        alert('Song added successfully!'); // Notify the user of success
+                        $('#addSongForm')[0].reset(); // Clear the form
+                    },
+                    error: function(xhr) {
+                        alert('Error adding song: ' + xhr.responseText); // Notify the user of error
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

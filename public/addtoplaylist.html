@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADD TO PLAYLIST</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+    <header>
+        <div class="left-things" style="background-color: rgb(32, 10, 66); width: 100%;">
+            <img src="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/symphoria_logo.png" 
+                 height="100px" alt="Symphoria Logo">
+        </div>
+    </header>
+
+    <div class="nav-container" style="background-color: rgb(190, 172, 216); width: 100%;">
+        <ul class="nav" style="width: 100%; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-weight: 400;">
+            <li class="item" onclick="showit()">
+                <a href="home.html" style="font-weight: bold; color: rgb(85, 33, 33);font-size: larger;">Home</a>
+            </li>
+            <li class="item" onclick="hideit()">
+                <a href="sports.html" style="font-weight: bold; color: rgb(85, 33, 33);font-size: larger;">Contact Us</a>
+            </li>
+            <li class="item" onclick="hideit()">
+                <a href="politics.html" style="font-weight: bold; color: rgb(85, 33, 33);font-size: larger;">More</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="everything">
+        <div class="welcome">
+            <h1>ADD TO PLAYLIST</h1>
+        </div>
+
+        <div class="form-container">
+            <form id="songForm">
+                <input type="text" placeholder="Playlist Name" name="playlistName" required><br>
+                <div id="songInputs">
+                    <input type="text" placeholder="Song Title" name="songTitle[]" required><br>
+                </div>
+                <button type="button" onclick="addSongInput()">Add Another Song</button><br>
+                <button type="submit">ADD</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>Contact Us At: mailmy798@gmail.com</p>
+        <p>&copy; 2023 Music Platform</p>
+    </footer>
+
+    <script>
+        // Function to add more song input fields
+        function addSongInput() {
+            const songInputsDiv = document.getElementById('songInputs');
+            const newSongInput = `
+                <input type="text" placeholder="Song Title" name="songTitle[]" required><br>
+            `;
+            songInputsDiv.insertAdjacentHTML('beforeend', newSongInput);
+        }
+
+        // Get the form element
+        const songForm = document.getElementById('songForm');
+
+        // Add submit event listener to the form
+        songForm.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent form from reloading the page
+
+            const formData = new FormData(songForm);
+            const playlistName = formData.get('playlistName'); // Get playlist name directly
+            const songTitles = formData.getAll('songTitle[]'); // Get all song titles
+
+            // Create an array of song titles
+            const songs = songTitles.map(title => ({ title }));
+
+            // Send playlist and songs to the server
+            try {
+                const response = await fetch('http://localhost:3000/add-to-playlist', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        playlistName: playlistName,
+                        songs: songs
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Songs added to playlist successfully!');
+                    songForm.reset();
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.error}`);
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

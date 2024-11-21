@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex; /* Enables flexbox layout */
+    height: 100vh; /* Sets the height to full viewport height */
+}
+
+.container {
+    display: flex; /* Creates a flex container */
+    width: 100%; /* Full width of the viewport */
+}
+
+.image-section {
+    flex: 1; /* Takes half of the container */
+    background: url('https://ih1.redbubble.net/image.4350273978.7507/farp,large,wall_texture,product,750x1000.jpg') no-repeat center center; /* Ensure the path is correct */
+    background-size: cover; /* Ensures the image covers the entire section */
+    height: 100vh; /* Ensures the section takes full height */
+}
+
+.form-section {
+    flex: 1; /* Takes half of the container */
+    background-color: rgb(78, 25, 78); /* Purple background for the login section */
+    color: white; /* White text color for contrast */
+    display: flex; /* Enables flex layout for the form section */
+    flex-direction: column; /* Stacks children vertically */
+    justify-content: center; /* Centers children vertically */
+    align-items: center; /* Centers children horizontally */
+}
+
+header {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column; /* Stacks input fields vertically */
+    width: 80%; /* Width of the form */
+    background-color: rgba(255, 255, 255, 0.1); /* Light transparent background for the form container */
+    padding: 20px; /* Adds padding to the form */
+    border-radius: 10px; /* Rounds the corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Adds shadow for depth */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #007bff;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.signup-link {
+    margin-top: 10px;
+    color: #fff;
+}
+
+.signup-link a {
+    color: #ffcc00; /* Change link color for better visibility */
+    text-decoration: none;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}

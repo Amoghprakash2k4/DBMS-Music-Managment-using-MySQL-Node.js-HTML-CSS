@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELETE Song</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+    <header>
+        <div class="left-things" style="background-color: rgb(32, 10, 66); width: 100%;">
+            <img src="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/symphoria_logo.png" 
+                 height="100px" alt="Symphoria Logo">
+        </div>
+    </header>
+
+    <div class="nav-container" style="background-color: rgb(190, 172, 216); width: 100%;">
+        <ul class="nav" style="width: 100%; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-weight: 400;">
+            <li class="item" onclick="showit()">
+                <a href="home.html" style="font-weight: bold; color: rgb(85, 33, 33);font-size: larger;">Home</a>
+            </li>
+            <li class="item" onclick="hideit()"><a href="sports.html" style="font-weight: bold; color: rgb(85, 33, 33);font-size: larger;">Contact Us</a></li>
+            <li class="item" onclick="hideit()"><a href="politics.html" style="font-weight: bold; color: rgb(85, 33, 33);font-size: larger;">More</a></li>
+        </ul>
+    </div>
+
+    <div class="everything">
+        <div class="welcome">
+            <h1>DELETE SONG SECTION</h1>
+        </div>
+
+        <div class="form-container">
+            <form id="songForm">
+                <input type="text" placeholder="Song Title" name="songTitle" required><br>
+
+                <input type="text" placeholder="Artist Name" name="artistName" required><br>
+
+                <button type="submit">DELETE</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>Contact Us At: mailmy798@gmail.com</p>
+        <p>&copy; 2023 Music Platform</p>
+    </footer>
+
+
+    <script>
+        const songForm = document.getElementById('songForm');
+    
+        songForm.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent form from reloading the page
+    
+            const songTitle = songForm.songTitle.value;
+            const artistName = songForm.artistName.value;
+    
+            try {
+                const response = await fetch('http://localhost:3000/songs', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ songTitle, artistName })
+                });
+    
+                const result = await response.json();
+    
+                if (response.ok) {
+                    alert(result.message);
+                    songForm.reset();
+                } else {
+                    alert(`Error: ${result.error || result.message}`);
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);  // Log fetch error details in the browser console
+                alert('An error occurred while trying to delete the song. Please check the console for details.');
+            }
+        });
+    </script>
+    
+    
+    
+
+</body>
+
+</html>
